@@ -13,12 +13,7 @@ RUN sudo dnf check-update && \
         alsa-lib-devel \
         libudev-devel \
         libxkbcommon \
-        vulkan-tools \
-        uv \
-        rust \
-        cargo \
-        rustfmt \
-        rust-src
+        vulkan-tools 
 
 # Run special installation scripts.
 COPY install-custom.sh .
