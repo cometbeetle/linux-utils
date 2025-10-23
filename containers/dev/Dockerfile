@@ -1,4 +1,4 @@
-FROM fedora-toolbox:latest
+FROM registry.fedoraproject.org/fedora-toolbox:latest
 
 WORKDIR /tmp/setup
 
