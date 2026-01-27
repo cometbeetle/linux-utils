@@ -14,21 +14,35 @@ gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
 EOF
 
 # Add the Visual Studio Code repository.
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
 # Install the new packages.
-sudo dnf check-update
-sudo dnf install -y temurin-21-jdk code
+dnf install -y temurin-21-jdk code
 
 # Install JetBrains Toolbox.
 wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.2.0.65851.tar.gz"
-sudo tar -xzf jetbrains-toolbox-*.tar.gz -C /opt
+mkdir /opt/jetbrains-toolbox && tar -xzf jetbrains-toolbox-*.tar.gz -C /opt/jetbrains-toolbox --strip-components 1
 rm *.tar.gz
-sudo mkdir /opt/launchers
-cat <<EOF | sudo tee /opt/launchers/jetbrains-toolbox.sh > /dev/null
+mkdir /opt/launchers
+cat <<EOF > /opt/launchers/jetbrains-toolbox.sh
 #!/usr/bin/env bash
-/opt/jetbrains-toolbox-*/bin/jetbrains-toolbox >/dev/null 2>&1 &
+/opt/jetbrains-toolbox/bin/jetbrains-toolbox >/dev/null 2>&1 &
 EOF
-sudo chmod +x /opt/launchers/jetbrains-toolbox.sh
-sudo ln -sf /opt/launchers/jetbrains-toolbox.sh /usr/local/bin/jetbrains-toolbox
+chmod +x /opt/launchers/jetbrains-toolbox.sh
+ln -sf /opt/launchers/jetbrains-toolbox.sh /usr/local/bin/jetbrains-toolbox
+mkdir -p ~/.local/share/JetBrains/Toolbox
+cat <<EOF > ~/.local/share/JetBrains/Toolbox/.settings.json
+{
+    "autostart": false,
+    "shell_scripts": {
+        "enabled": false
+    },
+    "ui": {
+        "scale": 1.25
+    },
+    "update": {
+        "install_automatically": false
+    }
+}
+EOF

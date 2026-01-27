@@ -3,8 +3,7 @@ FROM registry.fedoraproject.org/fedora-toolbox:latest
 WORKDIR /tmp/setup
 
 # Install simple packages via DNF.
-RUN sudo dnf check-update && \
-    sudo dnf install -y \
+RUN dnf install -y \
         gcc \ 
         gcc-c++ \
         cmake \
@@ -14,7 +13,7 @@ RUN sudo dnf check-update && \
         libudev-devel \
         libxkbcommon \
         vulkan-tools && \
-    sudo dnf clean all
+    dnf clean all
 
 # Run special installation scripts.
 COPY install-custom.sh .
