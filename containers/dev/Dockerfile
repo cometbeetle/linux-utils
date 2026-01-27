@@ -13,10 +13,9 @@ RUN sudo dnf check-update && \
         alsa-lib-devel \
         libudev-devel \
         libxkbcommon \
-        vulkan-tools 
+        vulkan-tools && \
+    sudo dnf clean all
 
 # Run special installation scripts.
 COPY install-custom.sh .
-RUN chmod +x install-custom.sh && ./install-custom.sh
-
-RUN sudo dnf clean all
+RUN chmod +x install-custom.sh && ./install-custom.sh && sudo dnf clean all
