@@ -31,18 +31,3 @@ cat <<EOF > /opt/launchers/jetbrains-toolbox.sh
 EOF
 chmod +x /opt/launchers/jetbrains-toolbox.sh
 ln -sf /opt/launchers/jetbrains-toolbox.sh /usr/local/bin/jetbrains-toolbox
-mkdir -p ~/.local/share/JetBrains/Toolbox
-cat <<EOF > ~/.local/share/JetBrains/Toolbox/.settings.json
-{
-    "autostart": false,
-    "shell_scripts": {
-        "enabled": false
-    },
-    "ui": {
-        "scale": 1.25
-    },
-    "update": {
-        "install_automatically": false
-    }
-}
-EOF
