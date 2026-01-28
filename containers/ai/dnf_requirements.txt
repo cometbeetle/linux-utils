@@ -1,1 +1,0 @@
-fuse fuse-libs nspr nss dbus-libs atk at-spi2-atk gtk3
