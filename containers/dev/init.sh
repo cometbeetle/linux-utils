@@ -34,7 +34,8 @@ dnf install -y \
     alsa-lib-devel \
     libudev-devel \
     libxkbcommon \
-    vulkan-tools
+    vulkan-tools \
+    pandoc
 
 # Add the Adoptium repository.
 cat <<EOF > /etc/yum.repos.d/adoptium.repo
