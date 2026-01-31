@@ -19,7 +19,7 @@ touch "$SENTINEL"
 # =======================================================================
 
 # Use setup directory.
-cd /tmp/setup
+mkdir -p /tmp/setup && cd /tmp/setup
 
 # Install standard packages via DNF.
 dnf install -y \
