@@ -25,7 +25,7 @@ cd /tmp/setup
 init_hooks="echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc"
 
 # Install standard packages via DNF.
-sudo dnf copr enable iucar/rstudio
+sudo dnf copr enable -y iucar/rstudio
 dnf install -y \
     gcc \
     gcc-c++ \
