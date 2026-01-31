@@ -25,6 +25,7 @@ cd /tmp/setup
 init_hooks="echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc"
 
 # Install standard packages via DNF.
+sudo dnf copr enable iucar/rstudio
 dnf install -y \
     gcc \
     gcc-c++ \
@@ -35,7 +36,9 @@ dnf install -y \
     libudev-devel \
     libxkbcommon \
     vulkan-tools \
-    pandoc
+    pandoc \
+    R \
+    rstudio-desktop
 
 # Add the Adoptium repository.
 cat <<EOF > /etc/yum.repos.d/adoptium.repo
