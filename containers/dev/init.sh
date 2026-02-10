@@ -29,6 +29,7 @@ dnf copr enable -y iucar/rstudio
 dnf install -y \
     gcc \
     gcc-c++ \
+    gcc-gfortran \
     cmake \
     make \
     wayland-devel \
@@ -54,8 +55,19 @@ EOF
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
+# Add the Intel oneAPI repository.
+cat <<EOF > /etc/yum.repos.d/oneAPI.repo
+[oneAPI]
+name=Intel® oneAPI repository
+baseurl=https://yum.repos.intel.com/oneapi
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+EOF
+
 # Install the new packages.
-dnf install -y temurin-21-jdk code
+dnf install -y temurin-21-jdk code intel-oneapi-compiler-fortran
 
 # Install JetBrains Toolbox.
 wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.2.0.65851.tar.gz"
