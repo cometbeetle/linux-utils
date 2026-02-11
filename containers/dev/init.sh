@@ -68,7 +68,7 @@ gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.
 EOF
 
 # Install the new packages.
-dnf install -y temurin-21-jdk code intel-oneapi-compiler-fortran intel-oneapi-mkl-devel
+dnf install -y temurin-21-jdk code intel-hpckit
 
 # Install JetBrains Toolbox.
 wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.2.0.65851.tar.gz"
