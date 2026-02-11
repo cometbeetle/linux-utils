@@ -30,6 +30,7 @@ dnf install -y \
     gcc \
     gcc-c++ \
     gcc-gfortran \
+    gdb \
     cmake \
     make \
     wayland-devel \
