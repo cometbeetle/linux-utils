@@ -40,7 +40,8 @@ dnf install -y \
     vulkan-tools \
     pandoc \
     R \
-    rstudio-desktop
+    rstudio-desktop \
+    python3-pip
 
 # Add the Adoptium repository.
 cat <<EOF > /etc/yum.repos.d/adoptium.repo
