@@ -21,55 +21,67 @@ touch "$SENTINEL"
 # Use setup directory.
 mkdir -p /tmp/setup && cd /tmp/setup
 
+# Add .bashrc.d directory.
+mkdir -p ~/.bashrc.d
+
 # Fix Vulkan issue on NVIDIA GPUs.
 init_hooks="echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc"
-
-# Install standard packages via DNF.
-dnf copr enable -y iucar/rstudio
-dnf install -y \
-    gcc \
-    gcc-c++ \
-    gcc-gfortran \
-    gdb \
-    cmake \
-    make \
-    wayland-devel \
-    alsa-lib-devel \
-    libudev-devel \
-    libxkbcommon \
-    vulkan-tools \
-    pandoc \
-    R \
-    rstudio-desktop \
-    python3-pip
-
-# Add the Adoptium repository.
-cat <<EOF > /etc/yum.repos.d/adoptium.repo
-[Adoptium]
-name=Adoptium
-baseurl=https://packages.adoptium.net/artifactory/rpm/${DISTRIBUTION_NAME:-$(. /etc/os-release; echo $ID)}/\$releasever/\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
-EOF
 
 # Add the Visual Studio Code repository.
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-# Add the Intel oneAPI repository.
-cat <<EOF > /etc/yum.repos.d/oneAPI.repo
-[oneAPI]
-name=Intel® oneAPI repository
-baseurl=https://yum.repos.intel.com/oneapi
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-EOF
+# Install standard packages via DNF.
+packages=(
+    # General requirements.
+    gcc
+    gcc-c++
+    gcc-gfortran
+    gdb
+    cmake
+    make
+    code
+    wayland-devel
+    alsa-lib-devel
+    libudev-devel
+    libxkbcommon
+    vulkan-tools
+    mesa-libGL
+    openssl-devel  # helps with Spack
+    python3-devel  # helps with Spack
+    tcl-devel      # helps with Spack
+    clingo         # helps with Spack
+    Lmod           # HPC + Spack
+    pandoc
+    R
+    rstudio-desktop
+    # Additional Spack-related requirements.
+    file
+    bzip2
+    ca-certificates
+    git
+    gzip
+    patch
+    python3
+    tar
+    unzip
+    xz
+    zstd
+)
+dnf copr enable -y iucar/rstudio
+dnf install -y "${packages[@]}"
 
-# Install the new packages.
-dnf install -y temurin-21-jdk code intel-hpckit
+# Install Spack.
+git clone --depth=2 https://github.com/spack/spack.git /opt/spack
+. /opt/spack/share/spack/setup-env.sh
+spack config --scope system add modules:default:enable:[tcl]
+spack external find --scope system --all
+spack compiler find --scope system
+spack module tcl refresh -y
+cat <<EOF > /etc/profile.d/spack-setup-env.sh
+#!/usr/bin/env bash
+. /opt/spack/share/spack/setup-env.sh
+EOF
 
 # Install JetBrains Toolbox.
 wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.2.0.65851.tar.gz"
@@ -86,7 +98,7 @@ ln -sf /opt/launchers/jetbrains-toolbox.sh /usr/local/bin/jetbrains-toolbox
 # Install uv.
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install Rust.
+# Install Rust (do not use Spack).
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Allow launching apps on the host system from within the container.

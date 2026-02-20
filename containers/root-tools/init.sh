@@ -21,6 +21,9 @@ touch "$SENTINEL"
 # Use setup directory.
 mkdir -p /tmp/setup && cd /tmp/setup
 
+# Add .bashrc.d directory.
+mkdir -p ~/.bashrc.d
+
 # Install standard packages via DNF.
 dnf install -y \
     wireshark

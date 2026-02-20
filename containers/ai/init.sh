@@ -21,6 +21,9 @@ touch "$SENTINEL"
 # Use setup directory.
 mkdir -p /tmp/setup && cd /tmp/setup
 
+# Add .bashrc.d directory.
+mkdir -p ~/.bashrc.d
+
 # Fix Vulkan issue on NVIDIA GPUs.
 init_hooks="echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc"
 
