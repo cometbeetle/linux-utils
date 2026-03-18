@@ -25,7 +25,7 @@ mkdir -p /tmp/setup && cd /tmp/setup
 mkdir -p ~/.bashrc.d
 
 # Fix Vulkan issue on NVIDIA GPUs.
-init_hooks="echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc"
+echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json' >> ~/.bashrc.d/vk_icd
 
 # Add the Visual Studio Code repository.
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
