@@ -78,6 +78,7 @@ spack config --scope system add modules:default:enable:[tcl]
 spack external find --scope system --all
 spack compiler find --scope system
 spack module tcl refresh -y
+chmod 644 /etc/spack/modules.yaml
 cat <<EOF > /etc/profile.d/spack-setup-env.sh
 #!/usr/bin/env bash
 . /opt/spack/share/spack/setup-env.sh
