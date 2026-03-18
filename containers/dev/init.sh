@@ -84,7 +84,7 @@ cat <<EOF > /etc/profile.d/spack-setup-env.sh
 EOF
 
 # Install JetBrains Toolbox.
-wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.2.0.65851.tar.gz"
+wget "https://download.jetbrains.com/toolbox/jetbrains-toolbox-3.4.0.77112.tar.gz"
 mkdir /opt/jetbrains-toolbox && tar -xzf jetbrains-toolbox-*.tar.gz -C /opt/jetbrains-toolbox --strip-components 1
 rm *.tar.gz
 mkdir /opt/launchers
