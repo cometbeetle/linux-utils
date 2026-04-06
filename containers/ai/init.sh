@@ -29,14 +29,9 @@ echo 'export VK_ICD_FILENAMES=/run/host/usr/share/vulkan/icd.d/nvidia_icd.x86_64
 
 # Install standard packages via DNF.
 dnf install -y \
-    fuse \
-    fuse-libs \
-    nspr \
-    nss \
-    dbus-libs \
-    atk \
-    at-spi2-atk \
-    gtk3
+    mesa-libGL \
+    gcc \
+    gcc-c++
 
 # Install uv.
 curl -LsSf https://astral.sh/uv/install.sh | sh
