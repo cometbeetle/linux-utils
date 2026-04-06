@@ -46,7 +46,7 @@ packages=(
     libudev-devel
     libxkbcommon
     vulkan-tools
-    mesa-libGL
+    mesa-libGL-devel
     openssl-devel  # helps with Spack
     python3-devel  # helps with Spack
     tcl-devel      # helps with Spack
