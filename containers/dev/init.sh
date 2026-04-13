@@ -37,6 +37,8 @@ packages=(
     gcc
     gcc-c++
     gcc-gfortran
+    musl-libc-static
+    musl-devel
     gdb
     cmake
     make
